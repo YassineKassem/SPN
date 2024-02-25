@@ -1,0 +1,194 @@
+{% include 'base.html' %}
+
+
+<title>Dashboard</title>
+
+{% block body %}
+
+<body>
+    <!-- Begin page -->
+    <div id="wrapper">
+        <div class="content-page">
+            <div class="content">
+                <!-- Start Content-->
+                <div class="container-fluid">
+                    
+                    <!-- start page title -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box">
+                                <div class="page-title-right">
+
+                                </div>
+                                <h4 class="page-title">Dashboard Admin</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-xl-3">
+                            <div class="widget-rounded-circle card-box">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="avatar-lg rounded-circle bg-soft-pink border-pink border">
+                                            <i class="fe-heart font-22 avatar-title text-pink"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="text-right">
+                                            <h3 class="mt-1 text-dark">$<span data-plugin="counterup">58,947</span></h3>
+                                            <p class="text-muted mb-1 text-truncate">Total SPN Amount</p>
+                                        </div>
+                                    </div>
+                                </div> <!-- end row-->
+                            </div> <!-- end widget-rounded-circle-->
+                        </div> <!-- end col-->
+
+                        <div class="col-md-6 col-xl-3">
+                            <div class="widget-rounded-circle card-box">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="avatar-lg rounded-circle bg-soft-blue border-blue border">
+                                            <i class="fe-shopping-cart font-22 avatar-title text-blue"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="text-right">
+                                            <h3 class="text-dark mt-1">€<span data-plugin="counterup">{{ total_amount_eur }}</span></h3>
+                                            <p class="text-muted mb-1 text-truncate">Total euro Transaction</p>
+                                        </div>
+                                    </div>
+                                </div> <!-- end row-->
+                            </div> <!-- end widget-rounded-circle-->
+                        </div> <!-- end col-->
+
+                        <div class="col-md-6 col-xl-3">
+                            <div class="widget-rounded-circle card-box">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="avatar-lg rounded-circle bg-soft-success border-success border">
+                                            <i class="fe-bar-chart-line- font-22 avatar-title text-success"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="text-right">
+                                            <h3 class="text-dark mt-1">$<span data-plugin="counterup">{{ total_amount_usd }}</span></h3>
+                                            <p class="text-muted mb-1 text-truncate">Total dollar Transaction</p>
+                                        </div>
+                                    </div>
+                                </div> <!-- end row-->
+                            </div> <!-- end widget-rounded-circle-->
+                        </div> <!-- end col-->
+
+                        <div class="col-md-6 col-xl-3">
+                            <div class="widget-rounded-circle card-box">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="avatar-lg rounded-circle bg-soft-warning border-warning border">
+                                            <i class="fe-eye font-22 avatar-title text-warning"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="text-right">
+                                            <h3 class="text-dark mt-1">£<span data-plugin="counterup">{{ total_amount_gbp }}</span></h3>
+                                            <p class="text-muted mb-1 text-truncate">Total GBP Transaction</p>
+                                        </div>
+                                    </div>
+                                </div> <!-- end row-->
+                            </div> <!-- end widget-rounded-circle-->
+                        </div> <!-- end col-->
+                    </div>
+                    <!-- end row-->
+                    <!-- end page title -->
+                    <div class="row">
+                        <div class="col-md-6 col-xl-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="header-title">Car Owners Count</h4>
+                                    <div class="mt-4">
+                                        <canvas id="myChart" height="250"></canvas>
+                                        <script>
+                                            document.addEventListener('DOMContentLoaded', function () {
+                                                // Récupérer les données JSON transmises depuis Flask
+                                                var carOwnerCounts = JSON.parse(
+                                                    '{{ car_owner_counts_json | safe }}');
+
+                                                // Extraire les clés (propriétaires de voitures) et les valeurs (nombre de voitures)
+                                                var labels = Object.keys(carOwnerCounts);
+                                                var data = Object.values(carOwnerCounts);
+
+                                                // Créer un nouveau graphique à barres avec Chart.js
+                                                var ctx = document.getElementById('myChart').getContext('2d');
+                                                var myChart = new Chart(ctx, {
+                                                    type: 'bar',
+                                                    data: {
+                                                        labels: labels,
+                                                        datasets: [{
+                                                            label: 'Nombre de voitures',
+                                                            data: data,
+                                                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                                            borderColor: 'rgba(54, 162, 235, 1)',
+                                                            borderWidth: 1
+                                                        }]
+                                                    },
+                                                    options: {
+                                                        scales: {
+                                                            yAxes: [{
+                                                                ticks: {
+                                                                    beginAtZero: true
+                                                                }
+                                                            }]
+                                                        }
+                                                    }
+                                                });
+                                            });
+                                        </script>
+                                    </div>
+                                </div> <!-- end card-body-->
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- end row -->
+                </div>
+
+            </div>
+                <!-- Footer Start -->
+                
+                <footer class="footer">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-6">
+                                2015 - <script>
+                                    document.write(new Date().getFullYear())
+                                </script> &copy; UBold theme by <a href="">Coderthemes</a>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="text-md-right footer-links d-none d-sm-block">
+                                    <a href="javascript:void(0);">About Us</a>
+                                    <a href="javascript:void(0);">Help</a>
+                                    <a href="javascript:void(0);">Contact Us</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+                <!-- end Footer -->
+        </div>
+    </div>
+
+</body>
+<script src="{{ url_for('static', filename='assets/js/vendor.min.js') }}"></script>
+
+<!-- Plugins js-->
+<script src="{{ url_for('static', filename='assets/libs/flatpickr/flatpickr.min.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/libs/apexcharts/apexcharts.min.js') }}"></script>
+
+<script src="{{ url_for('static', filename='assets/libs/selectize/js/standalone/selectize.min.js') }}"></script>
+
+<!-- Dashboard 1 init js-->
+<script src="{{ url_for('static', filename='assets/js/pages/dashboard-1.init.js') }}"></script>
+<script src="{{ url_for('static', filename='assets/js/pages/stat.init.js') }}"></script>
+
+<!-- App js-->
+<script src="{{ url_for('static', filename='assets/js/app.min.js') }}"></script>
+{% endblock %}
